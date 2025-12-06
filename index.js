@@ -24,6 +24,8 @@ app.get("/", (req, res) => {
   res.send("Carpooling API is running...");
 });
 
+app.get("/health", (req, res) => res.send("API is running..."));
+
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/rides", rideRoutes);
