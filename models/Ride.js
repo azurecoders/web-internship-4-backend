@@ -167,11 +167,10 @@ rideSchema.virtual("isPast").get(function () {
 });
 
 // Pre-save to set availableSeats equal to totalSeats on creation
-rideSchema.pre("save", function (next) {
+rideSchema.pre("save", function () {
   if (this.isNew) {
     this.availableSeats = this.totalSeats;
   }
-  next();
 });
 
 const Ride = mongoose.model("Ride", rideSchema);

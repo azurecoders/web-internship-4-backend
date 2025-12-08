@@ -67,15 +67,15 @@ const bookingSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: [
-        "pending",           // Waiting for driver confirmation
-        "confirmed",         // Driver accepted the booking
+        "pending", // Waiting for driver confirmation
+        "confirmed", // Driver accepted the booking
         "coming-for-pickup", // Driver is on the way to pick up
-        "picked-up",         // Passenger has been picked up
-        "in-transit",        // Ride is in progress
-        "dropped-off",       // Passenger has been dropped off
-        "completed",         // Ride completed successfully
-        "cancelled",         // Booking was cancelled
-        "rejected",          // Driver rejected the booking
+        "picked-up", // Passenger has been picked up
+        "in-transit", // Ride is in progress
+        "dropped-off", // Passenger has been dropped off
+        "completed", // Ride completed successfully
+        "cancelled", // Booking was cancelled
+        "rejected", // Driver rejected the booking
       ],
       default: "pending",
     },
@@ -139,11 +139,14 @@ bookingSchema.index({ passenger: 1, status: 1 });
 bookingSchema.index({ status: 1 });
 
 // Calculate total fare before saving
-bookingSchema.pre("save", function (next) {
-  if (this.isNew || this.isModified("seatsBooked") || this.isModified("farePerSeat")) {
+bookingSchema.pre("save", function () {
+  if (
+    this.isNew ||
+    this.isModified("seatsBooked") ||
+    this.isModified("farePerSeat")
+  ) {
     this.totalFare = this.seatsBooked * this.farePerSeat;
   }
-  next();
 });
 
 const Booking = mongoose.model("Booking", bookingSchema);

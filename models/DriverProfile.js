@@ -49,7 +49,7 @@ const driverProfileSchema = new mongoose.Schema(
     },
     isApproved: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     isAvailable: {
       type: Boolean,
